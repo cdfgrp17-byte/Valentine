@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Manya - Will You Be My Valentine?</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial Rounded MT Bold', 'Arial', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #ffebf3 0%, #ffe6f2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            padding: 20px;
+            cursor: default;
+        }
+        
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.97);
+            border-radius: 25px;
+            box-shadow: 0 20px 40px rgba(255, 105, 180, 0.3);
+            padding: 50px;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            border: 10px solid #ff66b2;
+            overflow: hidden;
+        }
+        
+        .header {
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            color: #ff3385;
+            font-size: 3.8rem;
+            margin-bottom: 15px;
+            text-shadow: 3px 3px 0 #ffd9ec;
+            letter-spacing: 1px;
+        }
+        
+        .subtitle {
+            color: #ff66b2;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .names {
+            color: #ff3385;
+            font-size: 2.2rem;
+            font-weight: bold;
+            margin: 20px 0;
+            background: linear-gradient(to right, #ff66b2, #ff3385);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 2px 2px 0 #ffd9ec;
+        }
+        
+        .message {
+            background-color: #fff0f7;
+            border-radius: 25px;
+            padding: 30px;
+            margin: 30px 0;
+            border: 5px dashed #ff99cc;
+            font-size: 1.4rem;
+            color: #cc3366;
+            line-height: 1.7;
+            text-align: left;
+        }
+        
+        .message p {
+            margin-bottom: 15px;
+        }
+        
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 60px;
+            margin: 50px 0;
+            position: relative;
+            height: 200px;
+            width: 100%;
+            background-color: rgba(255, 240, 247, 0.5);
+            border-radius: 30px;
+            border: 3px dashed #ff99cc;
+            overflow: visible;
+        }
+        
+        .button {
+            padding: 25px 60px;
+            font-size: 2.2rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            z-index: 100;
+            position: absolute;
+            width: 220px;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        #yes-btn {
+            background: linear-gradient(to right, #ff66b2, #ff3385);
+            color: white;
+            left: 20%;
+            transform: translateX(-50%);
+            position: absolute;
+        }
+        
+        #yes-btn:hover {
+            transform: translateX(-50%) scale(1.12);
+            box-shadow: 0 20px 35px rgba(255, 51, 133, 0.4);
+            background: linear-gradient(to right, #ff3385, #ff0066);
+        }
+        
+        #no-btn {
+            background: linear-gradient(to right, #cccccc, #999999);
+            color: white;
+            position: absolute;
+            right: 20%;
+            transform: translateX(50%);
+        }
+        
+        #no-btn:hover {
+            transform: translateX(50%) scale(1.05);
+        }
+        
+        .cute-message {
+            position: fixed;
+            background-color: white;
+            padding: 15px 25px;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            color: #ff3385;
+            font-weight: bold;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border: 4px solid #ffb3d9;
+            max-width: 300px;
+            text-align: center;
+            font-size: 1.3rem;
+            pointer-events: none;
+            transform: translate(-50%, -100%);
+        }
+        
+        .floating-heart {
+            position: absolute;
+            font-size: 2.5rem;
+            color: #ff3385;
+            z-index: 1;
+            animation: float 8s ease-in-out infinite;
+            pointer-events: none;
+        }
+        
+        .floating-bear {
+            position: absolute;
+            font-size: 3.5rem;
+            color: #ff66b2;
+            z-index: 1;
+            animation: float 10s ease-in-out infinite;
+            pointer-events: none;
+        }
+        
+        .teddy-container {
+            display: flex;
+            justify-content: space-around;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+        
+        .teddy {
+            font-size: 5rem;
+            color: #cc3366;
+            animation: bounce 2.5s infinite alternate;
+            margin: 0 20px;
+        }
+        
+        .footer {
+            margin-top: 40px;
+            color: #ff66b2;
+            font-size: 1.3rem;
+        }
+        
+        .heart-beat {
+            color: #ff0066;
+            animation: heartbeat 1.2s infinite;
+            display: inline-block;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(15deg); }
+        }
+        
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-25px); }
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.8rem; }
+            .button { 
+                padding: 20px 40px; 
+                font-size: 1.8rem; 
+                width: 180px;
+                height: 85px;
+            }
+            .button-container { 
+                gap: 30px; 
+                height: 180px;
+            }
+            .container { padding: 30px; }
+            .message { font-size: 1.2rem; padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-heart heart-beat"></i> Will You Be My Valentine? <i class="fas fa-heart heart-beat"></i></h1>
+            <div class="names">Dheeraj ❤️ Manya</div>
+            <p class="subtitle">My Dearest Manya,</p>
+        </div>
+        
+        <div class="message">
+            <p>My sweet Manya, from the moment I met you, my world has been filled with colors I never knew existed. Your smile lights up my darkest days, and your laughter is my favorite melody.</p>
+            <p>This Valentine's Day, I want to make it official and ask you the most important question of my life. Will you do me the honor of being my Valentine?</p>
+            <p>You mean everything to me, and I can't imagine my life without you by my side. Every moment with you is special, and I want to make many more beautiful memories together.</p>
+            <p>With all my love, always and forever,</p>
+            <p style="font-weight: bold; margin-top: 15px; text-align: right; font-size: 1.6rem; color: #ff0066;">Your Dheeraj 💖</p>
+        </div>
+        
+        <div class="teddy-container">
+            <div class="teddy">🧸</div>
+            <div class="teddy">🐻</div>
+            <div class="teddy">💝</div>
+            <div class="teddy">🧸</div>
+            <div class="teddy">🐻</div>
+        </div>
+        
+        <div class="button-container" id="button-container">
+            <button class="button" id="yes-btn">YES!</button>
+            <button class="button" id="no-btn">NO</button>
+            <div class="cute-message" id="cute-message">The button looks shy! Maybe you should consider the other option 😊</div>
+        </div>
+        
+        <div class="footer">
+            <p>Made with <i class="fas fa-heart heart-beat"></i> especially for my Manya</p>
+            <p>Click YES to make my dreams come true! 💖</p>
+        </div>
+    </div>
+    
+    <script>
+        // Generate floating hearts and bears
+        const body = document.querySelector('body');
+        
+        for (let i = 0; i < 25; i++) {
+            createFloatingElement('❤️', 'floating-heart');
+            createFloatingElement('🧸', 'floating-bear');
+            if (i % 3 === 0) createFloatingElement('💕', 'floating-heart');
+            if (i % 4 === 0) createFloatingElement('🐻', 'floating-bear');
+        }
+        
+        function createFloatingElement(content, className) {
+            const element = document.createElement('div');
+            element.innerHTML = content;
+            element.className = className;
+            
+            // Random position
+            const posX = Math.random() * 100;
+            const posY = Math.random() * 100;
+            element.style.left = `${posX}vw`;
+            element.style.top = `${posY}vh`;
+            
+            // Random size
+            const size = Math.random() * 2 + 1.5;
+            element.style.fontSize = `${size}rem`;
+            
+            // Random animation delay
+            element.style.animationDelay = `${Math.random() * 5}s`;
+            element.style.animationDuration = `${Math.random() * 5 + 5}s`;
+            
+            body.appendChild(element);
+        }
+        
+        // Shy NO button functionality
+        const buttonContainer = document.getElementById('button-container');
+        const noButton = document.getElementById('no-btn');
+        const cuteMessage = document.getElementById('cute-message');
+        const yesButton = document.getElementById('yes-btn');
+        
+        // Array of cute messages to display
+        const cuteMessages = [
+            "The button looks shy! Maybe you should consider YES instead? 😊",
+            "Oops! It ran away! How about trying the YES button? 💖",
+            "It seems NO doesn't want to be clicked! What about YES?",
+            "The button is playing hard to get! Try the YES button instead!",
+            "NO is afraid of your cursor! YES is much more welcoming!",
+            "It looks like NO is running from commitment! 😉",
+            "Maybe the universe is telling you to click YES!",
+            "NO button is being shy! YES would love your click!",
+            "Hmm... NO seems nervous. YES is waiting for you!",
+            "That NO button is tricky! How about a solid YES?",
+            "The NO button is avoiding you! The YES button would welcome you!",
+            "Looks like NO has commitment issues! YES is ready! 💕"
+        ];
+        
+        // Define corner positions within the button container
+        const corners = [
+            { x: 10, y: 10 },                    // Top-left
+            { x: buttonContainer.clientWidth - 230, y: 10 },  // Top-right
+            { x: 10, y: buttonContainer.clientHeight - 110 }, // Bottom-left
+            { x: buttonContainer.clientWidth - 230, y: buttonContainer.clientHeight - 110 } // Bottom-right
+        ];
+        
+        let currentCorner = 1; // Start at top-right
+        let lastJumpTime = 0;
+        let messageVisible = false;
+        let messageTimeout;
+        
+        // Initialize NO button in a corner
+        moveNoButtonToCorner(currentCorner);
+        
+        // Update corners on resize
+        window.addEventListener('resize', function() {
+            corners[1].x = buttonContainer.clientWidth - 230;
+            corners[3].x = buttonContainer.clientWidth - 230;
+            corners[2].y = buttonContainer.clientHeight - 110;
+            corners[3].y = buttonContainer.clientHeight - 110;
+        });
+        
+        // Track mouse movement
+        document.addEventListener('mousemove', (e) => {
+            const buttonRect = noButton.getBoundingClientRect();
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+            
+            // Calculate distance between cursor and button center
+            const buttonCenterX = buttonRect.left + buttonRect.width / 2;
+            const buttonCenterY = buttonRect.top + buttonRect.height / 2;
+            
+            const distance = Math.sqrt(
+                Math.pow(mouseX - buttonCenterX, 2) + 
+                Math.pow(mouseY - buttonCenterY, 2)
+            );
+            
+            // If cursor is within 150px of the NO button
+            if (distance < 150) {
+                const now = Date.now();
+                
+                // Show cute message
+                if (!messageVisible) {
+                    showCuteMessage(mouseX, mouseY);
+                }
+                
+                // Jump to a different corner if enough time passed
+                if (now - lastJumpTime > 400) {
+                    // Find a corner different from current one
+                    let newCorner;
+                    do {
+                        newCorner = Math.floor(Math.random() * corners.length);
+                    } while (newCorner === currentCorner);
+                    
+                    moveNoButtonToCorner(newCorner);
+                    currentCorner = newCorner;
+                    lastJumpTime = now;
+                    
+                    // Update message position
+                    showCuteMessage(mouseX, mouseY);
+                }
+            } else if (distance > 200 && messageVisible) {
+                // Hide message when cursor is far
+                hideCuteMessage();
+            }
+        });
+        
+        function moveNoButtonToCorner(cornerIndex) {
+            const corner = corners[cornerIndex];
+            
+            // Apply smooth transition
+            noButton.style.transition = 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
+            noButton.style.left = `${corner.x}px`;
+            noButton.style.top = `${corner.y}px`;
+            
+            // Add bounce effect
+            setTimeout(() => {
+                noButton.style.transform = 'translateX(50%) scale(0.95)';
+                setTimeout(() => {
+                    noButton.style.transform = 'translateX(50%) scale(1)';
+                }, 150);
+            }, 300);
+        }
+        
+        function showCuteMessage(mouseX, mouseY) {
+            // Clear any existing timeout
+            clearTimeout(messageTimeout);
+            
+            // Choose a random cute message
+            const randomIndex = Math.floor(Math.random() * cuteMessages.length);
+            cuteMessage.textContent = cuteMessages[randomIndex];
+            
+            // Position the message above the cursor
+            cuteMessage.style.left = `${mouseX}px`;
+            cuteMessage.style.top = `${mouseY - 80}px`;
+            
+            // Ensure message stays within viewport
+            const msgRect = cuteMessage.getBoundingClientRect();
+            if (msgRect.left < 20) {
+                cuteMessage.style.left = '20px';
+            }
+            if (msgRect.right > window.innerWidth - 20) {
+                cuteMessage.style.left = `${window.innerWidth - msgRect.width - 20}px`;
+            }
+            if (msgRect.top < 20) {
+                cuteMessage.style.top = '20px';
+            }
+            
+            // Show message
+            cuteMessage.style.opacity = '1';
+            messageVisible = true;
+            
+            // Auto-hide message after 2 seconds
+            messageTimeout = setTimeout(() => {
+                hideCuteMessage();
+            }, 2000);
+        }
+        
+        function hideCuteMessage() {
+            cuteMessage.style.opacity = '0';
+            messageVisible = false;
+        }
+        
+        // Prevent NO button from being clicked
+        noButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // Make it jump to another corner
+            let newCorner;
+            do {
+                newCorner = Math.floor(Math.random() * corners.length);
+            } while (newCorner === currentCorner);
+            
+            moveNoButtonToCorner(newCorner);
+            currentCorner = newCorner;
+            
+            // Show message
+            showCuteMessage(e.clientX, e.clientY);
+        });
+        
+        // YES button functionality
+        yesButton.addEventListener('click', function() {
+            // Create celebration effect
+            document.body.innerHTML = '';
+            
+            // Create celebration container
+            const celebration = document.createElement('div');
+            celebration.style.cssText = `
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                background: linear-gradient(135deg, #ffebf3 0%, #ffe6f2 100%);
+                text-align: center;
+                padding: 20px;
+                overflow: hidden;
+            `;
+            
+            celebration.innerHTML = `
+                <h1 style="color: #ff3385; font-size: 4.5rem; margin-bottom: 30px; text-shadow: 3px 3px 0 #ffd9ec;">
+                    <i class="fas fa-heart"></i> YAY! You Made Me So Happy! <i class="fas fa-heart"></i>
+                </h1>
+                <div style="font-size: 3rem; color: #ff66b2; margin-bottom: 20px;">
+                    Manya, you just made me the happiest person! 💖
+                </div>
+                <div style="font-size: 6rem; margin: 40px; color: #ff0066;">
+                    🧸❤️🐻🎉💕
+                </div>
+                <div style="font-size: 2.5rem; color: #cc3366; margin-bottom: 30px; max-width: 700px;">
+                    This will be the best Valentine's Day ever!<br>
+                    Get ready for the most romantic surprise! 
+                </div>
+                <div style="font-size: 2rem; color: #ff3385; margin: 30px; padding: 20px; background: rgba(255, 255, 255, 0.9); border-radius: 20px; border: 5px dashed #ff99cc;">
+                    From your forever Valentine,<br><span style="font-size: 2.5rem; font-weight: bold;">Dheeraj 💕</span>
+                </div>
+                <button onclick="location.reload()" style="
+                    margin-top: 40px;
+                    padding: 25px 60px;
+                    font-size: 2rem;
+                    background: linear-gradient(to right, #ff66b2, #ff3385);
+                    color: white;
+                    border: none;
+                    border-radius: 60px;
+                    cursor: pointer;
+                    box-shadow: 0 15px 30px rgba(255, 51, 133, 0.3);
+                    transition: all 0.3s;
+                " onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 20px 35px rgba(255, 51, 133, 0.4)';" 
+                onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 15px 30px rgba(255, 51, 133, 0.3)';">
+                    Create Another Magic Moment!
+                </button>
+            `;
+            
+            document.body.appendChild(celebration);
+            
+            // Add lots of floating hearts to celebration
+            for (let i = 0; i < 80; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.innerHTML = '❤️';
+                    const size = Math.random() * 4 + 2;
+                    heart.style.cssText = `
+                        position: fixed;
+                        font-size: ${size}rem;
+                        color: #ff3385;
+                        left: ${Math.random() * 100}vw;
+                        top: 105vh;
+                        z-index: 1000;
+                        animation: fall ${Math.random() * 4 + 3}s linear forwards;
+                        pointer-events: none;
+                    `;
+                    
+                    document.body.appendChild(heart);
+                    
+                    // Remove heart after animation
+                    setTimeout(() => {
+                        if (heart.parentNode) {
+                            heart.parentNode.removeChild(heart);
+                        }
+                    }, 7000);
+                }, i * 80);
+            }
+            
+            // Add CSS for falling animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes fall {
+                    to {
+                        transform: translateY(-120vh) rotate(${Math.random() * 720}deg);
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
+</body>
+</html>
